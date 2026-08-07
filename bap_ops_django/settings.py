@@ -4,7 +4,6 @@ Django settings for bap_ops_django project.
 
 from pathlib import Path
 from decouple import config
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,10 +71,10 @@ WSGI_APPLICATION = 'bap_ops_django.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
-}
-DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'require',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 

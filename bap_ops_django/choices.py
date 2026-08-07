@@ -1,0 +1,4 @@
+RECORD_TYPE_CHOICES = [
+    ('TAX_1099', '1099'),
+    ('NONPROFIT_501', '501'),
+]

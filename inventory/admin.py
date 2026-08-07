@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import VaseReceived, VaseReturned
 
-# Register your models here.
+admin.site.register(VaseReceived)
+admin.site.register(VaseReturned)

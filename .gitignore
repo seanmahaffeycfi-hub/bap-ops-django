@@ -1,0 +1,24 @@
+# Ignore SQLite database
+/db.sqlite3
+
+# Ignore Python cache directories and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.egg-info/
+
+# Environment secrets
+.env
+
+# Collected static files (generated on deploy, not source)
+staticfiles/
+
+# SSL certs (public CA cert is fine to commit, but keep this here as a guard)

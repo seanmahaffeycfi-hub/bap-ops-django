@@ -45,3 +45,16 @@ def inventory_dashboard(request):
         'lost_or_broken_tracked': False,
     }
     return render(request, 'inventory/inventory_dashboard.html', context)
+
+from rest_framework import viewsets
+from .serializers import VaseReceivedSerializer, VaseReturnedSerializer
+
+
+class VaseReceivedViewSet(viewsets.ModelViewSet):
+    queryset = VaseReceived.objects.all()
+    serializer_class = VaseReceivedSerializer
+
+
+class VaseReturnedViewSet(viewsets.ModelViewSet):
+    queryset = VaseReturned.objects.all()
+    serializer_class = VaseReturnedSerializer

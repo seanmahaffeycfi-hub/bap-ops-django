@@ -49,3 +49,11 @@ def mileage_dashboard(request):
         'total_501': total_501,
     }
     return render(request, 'auto/mileage_dashboard.html', context)
+
+from rest_framework import viewsets
+from .serializers import MileageEntrySerializer
+
+
+class MileageEntryViewSet(viewsets.ModelViewSet):
+    queryset = MileageEntry.objects.all()
+    serializer_class = MileageEntrySerializer

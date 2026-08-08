@@ -1,5 +1,6 @@
-Django==6.1
+Django==5.2.9
 python-decouple==3.8
 gunicorn==23.0.0
 whitenoise==6.8.2
 django-axes==7.0.2
+djangorestframework==3.17.2

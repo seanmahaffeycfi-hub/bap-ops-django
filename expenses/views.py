@@ -38,3 +38,13 @@ def expense_list(request):
         'total_car': total_car,
     }
     return render(request, 'expenses/expense_list.html', context)
+
+from rest_framework import serializers
+from .serializers import ExpenseSerializer
+
+"""
+class MileageEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MileageEntry
+        fields = '__all__'
+"""

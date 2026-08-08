@@ -19,3 +19,11 @@ def donation_list(request):
         'total_value': total_value,
     }
     return render(request, 'donations/donation_list.html', context)
+
+from rest_framework import viewsets
+from .serializers import DonationSerializer
+
+
+class DonationViewSet(viewsets.ModelViewSet):
+    queryset = Donation.objects.all()
+    serializer_class = DonationSerializer

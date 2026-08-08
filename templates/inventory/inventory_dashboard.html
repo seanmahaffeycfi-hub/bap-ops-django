@@ -1,6 +1,45 @@
 {% extends 'base.html' %}
 {% block title %}Inventory{% endblock %}
 {% block content %}
-    <h2>Inventory</h2>
-    <p>Full inventory dashboard coming next.</p>
+    <h2>Vase Inventory</h2>
+
+    <div class="totals-row">
+        <div class="totals-box">
+            <div class="label">Total Vases Received</div>
+            <div class="value">{{ total_received }}</div>
+        </div>
+        <div class="totals-box">
+            <div class="label">Vases Out</div>
+            <div class="value">{{ vases_out }}</div>
+        </div>
+        <div class="totals-box">
+            <div class="label">Vases In (Returned)</div>
+            <div class="value">{{ total_returned }}</div>
+        </div>
+        <div class="totals-box">
+            <div class="label">Lost or Broken</div>
+            <div class="value">
+                {% if lost_or_broken_tracked %}{{ lost_or_broken }}{% else %}Not tracked yet{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <h3>Who Has Vases (Oldest First)</h3>
+    <table>
+        <tr>
+            <th>Recipient</th>
+            <th>Currently Holding</th>
+            <th>First Delivered</th>
+        </tr>
+        {% for row in breakdown %}
+        <tr>
+            <td>{{ row.recipient }}</td>
+            <td>{{ row.net_held }}</td>
+            <td>{{ row.earliest_date }}</td>
+        </tr>
+        {% endfor %}
+        {% if not breakdown %}
+        <tr><td colspan="3" style="text-align:center; color:rgba(59,47,47,0.5);">No vases currently out.</td></tr>
+        {% endif %}
+    </table>
 {% endblock %}

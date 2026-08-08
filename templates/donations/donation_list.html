@@ -2,5 +2,33 @@
 {% block title %}Donations{% endblock %}
 {% block content %}
     <h2>Donations</h2>
-    <p>Full donations view coming next.</p>
+
+    <div class="totals-row">
+        <div class="totals-box">
+            <div class="label">Total Donation Value</div>
+            <div class="value">${{ total_value|floatformat:2 }}</div>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th><a href="?sort={% if sort == 'date' %}-date{% else %}date{% endif %}">Date</a></th>
+            <th>Donor</th>
+            <th>Description</th>
+            <th><a href="?sort={% if sort == 'value' %}-value{% else %}value{% endif %}">Value</a></th>
+            <th>Receipt Sent?</th>
+        </tr>
+        {% for donation in donations %}
+        <tr>
+            <td>{{ donation.date }}</td>
+            <td>{{ donation.donor_name }}</td>
+            <td>{{ donation.description }}</td>
+            <td>${{ donation.value|floatformat:2 }}</td>
+            <td>{% if donation.receipt_generated %}Yes{% else %}No{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% if not donations %}
+        <tr><td colspan="5" style="text-align:center; color:rgba(59,47,47,0.5);">No donations recorded yet.</td></tr>
+        {% endif %}
+    </table>
 {% endblock %}

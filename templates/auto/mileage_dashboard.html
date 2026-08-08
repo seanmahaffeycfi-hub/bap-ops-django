@@ -2,5 +2,48 @@
 {% block title %}Mileage{% endblock %}
 {% block content %}
     <h2>Mileage</h2>
-    <p>Full mileage dashboard coming next.</p>
+
+    <form method="get" class="filter-row">
+        <div>
+            <label>Year</label><br>
+            <select name="year" onchange="this.form.submit()">
+                {% for year in available_years %}
+                <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    <div class="totals-row">
+        <div class="totals-box">
+            <div class="label">{{ selected_year }} Total Miles — 1099</div>
+            <div class="value">{{ total_1099|floatformat:1 }}</div>
+        </div>
+        <div class="totals-box">
+            <div class="label">{{ selected_year }} Total Miles — 501</div>
+            <div class="value">{{ total_501|floatformat:1 }}</div>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Miles</th>
+            <th>Tag</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.start_mileage }}</td>
+            <td>{{ entry.end_mileage }}</td>
+            <td>{{ entry.miles|floatformat:1 }}</td>
+            <td>{{ entry.record_type }}</td>
+        </tr>
+        {% endfor %}
+        {% if not entries %}
+        <tr><td colspan="5" style="text-align:center; color:rgba(59,47,47,0.5);">No mileage entries for {{ selected_year }}.</td></tr>
+        {% endif %}
+    </table>
 {% endblock %}

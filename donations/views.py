@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import Donation
 
-# Create your views here.
+
+def donation_list(request):
+    donations = Donation.objects.all()
+    return render(request, 'donations/donation_list.html', {'donations': donations})

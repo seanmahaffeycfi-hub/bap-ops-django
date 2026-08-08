@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BAP Ops{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Bloom Again Ops</a>
+        <a href="{% url 'expense_list' %}">Expenses</a>
+        <a href="{% url 'donation_list' %}">Donations</a>
+        <a href="{% url 'inventory_dashboard' %}">Inventory</a>
+        <a href="{% url 'mileage_dashboard' %}">Mileage</a>
+    </nav>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

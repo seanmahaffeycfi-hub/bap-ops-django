@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def mileage_dashboard(request):
+    return render(request, 'auto/mileage_dashboard.html', {})

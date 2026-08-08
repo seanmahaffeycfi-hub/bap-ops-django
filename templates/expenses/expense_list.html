@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Expenses{% endblock %}
+{% block content %}
+    <h2>Expenses</h2>
+
+    <div class="totals-row">
+        <div class="totals-box">
+            <div class="label">Total 1099</div>
+            <div class="value">${{ total_1099|floatformat:2 }}</div>
+        </div>
+        <div class="totals-box">
+            <div class="label">Total 501</div>
+            <div class="value">${{ total_501|floatformat:2 }}</div>
+        </div>
+        <div class="totals-box">
+            <div class="label">Total Car Expenses</div>
+            <div class="value">${{ total_car|floatformat:2 }}</div>
+        </div>
+    </div>
+
+    <form method="get" class="filter-row">
+        <div>
+            <label>Tag</label><br>
+            <select name="record_type">
+                <option value="">All</option>
+                {% for value, label in record_type_choices %}
+                <option value="{{ value }}" {% if value == record_type_filter %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label><input type="checkbox" name="car_only" value="1" {% if car_only %}checked{% endif %}> Car expenses only</label>
+        </div>
+        <input type="hidden" name="sort" value="{{ sort }}">
+        <button type="submit">Apply</button>
+        {% if record_type_filter or car_only %}
+        <a href="{% url 'expense_list' %}" class="action-link">Clear</a>
+        {% endif %}
+    </form>
+
+    <table>
+        <tr>
+            <th><a href="?record_type={{ record_type_filter }}&car_only={{ car_only|yesno:'1,' }}&sort={% if sort == 'date' %}-date{% else %}date{% endif %}" style="color:inherit;">Date</a></th>
+            <th>Description</th>
+            <th><a href="?record_type={{ record_type_filter }}&car_only={{ car_only|yesno:'1,' }}&sort={% if sort == 'amount' %}-amount{% else %}amount{% endif %}" style="color:inherit;">Amount</a></th>
+            <th>Tag</th>
+            <th>Car?</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.description }}</td>
+            <td>${{ expense.amount|floatformat:2 }}</td>
+            <td>{{ expense.get_record_type_display }}</td>
+            <td>{% if expense.is_car_expense %}Yes{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% if not expenses %}
+        <tr><td colspan="5" style="text-align:center; color:#999;">No expenses match the selected filters.</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.db.models import Sum
 from decimal import Decimal
+from rest_framework import viewsets
 from .models import Expense
+from .serializers import ExpenseSerializer
 from bap_ops_django.choices import RECORD_TYPE_CHOICES
 
 
@@ -39,12 +41,7 @@ def expense_list(request):
     }
     return render(request, 'expenses/expense_list.html', context)
 
-from rest_framework import serializers
-from .serializers import ExpenseSerializer
 
-"""
-class MileageEntrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MileageEntry
-        fields = '__all__'
-"""
+class ExpenseViewSet(viewsets.ModelViewSet):
+    queryset = Expense.objects.all()
+    serializer_class = ExpenseSerializer
